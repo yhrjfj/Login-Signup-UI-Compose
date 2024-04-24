@@ -16,15 +16,17 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = Pink60,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Brown40,
+    background = DarkBlue60
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Pink60,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Brown40,
+    background = DarkBlue60
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -57,7 +59,7 @@ fun UITheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
