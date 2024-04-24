@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.yhr.jfj.ui.ui.theme.UITheme
 
 @Composable
 fun HeaderText(
@@ -20,8 +21,10 @@ fun HeaderText(
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showSystemUi = true)
 @Composable
 private fun HeaderTextPreview() {
-    HeaderText(text = "Login")
+    UITheme {
+        HeaderText(text = "Login")
+    }
 }
