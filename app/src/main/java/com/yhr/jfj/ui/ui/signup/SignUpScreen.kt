@@ -32,6 +32,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,7 @@ import androidx.navigation.compose.rememberNavController
 import com.yhr.jfj.ui.Route
 import com.yhr.jfj.ui.ui.components.HeaderText
 import com.yhr.jfj.ui.ui.components.LoginTextField
+import com.yhr.jfj.ui.ui.components.PasswordField
 import com.yhr.jfj.ui.ui.theme.UITheme
 
 // Default value for make app consistent
@@ -136,27 +138,29 @@ fun SignUpScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(itemSpacing))
 
         // Password
-        LoginTextField(
+        PasswordField(
             value = password,
             onValueChange = onPasswordChange,
             label = "Password",
             leadingIcon = Icons.Rounded.Lock,
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Next,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            visualTransformation = PasswordVisualTransformation()
         )
 
         Spacer(modifier = Modifier.height(itemSpacing))
 
         // Confirm Password
-        LoginTextField(
+        PasswordField(
+            modifier = Modifier.fillMaxWidth(),
             value = confirmPassword,
             onValueChange = onConfirmPasswordChange,
             label = "Confirm Password",
             leadingIcon = Icons.Rounded.Lock,
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done,
-            modifier = Modifier.fillMaxWidth()
+            visualTransformation = PasswordVisualTransformation()
         )
 
         Spacer(modifier = Modifier.height(itemSpacing))
@@ -178,7 +182,9 @@ fun SignUpScreen(navController: NavController) {
                     pushStringAnnotation(tag = privacyText, annotation = privacyText)
                     append(privacyText)
                 }
-                append(" & ")
+                withStyle(SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
+                    append(" & ")
+                }
                 withStyle(SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                     pushStringAnnotation(tag = policyText, annotation = policyText)
                     append(policyText)
