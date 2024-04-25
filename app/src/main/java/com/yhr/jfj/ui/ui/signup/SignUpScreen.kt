@@ -35,6 +35,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.yhr.jfj.ui.Route
 import com.yhr.jfj.ui.ui.components.HeaderText
 import com.yhr.jfj.ui.ui.components.LoginTextField
 import com.yhr.jfj.ui.ui.theme.UITheme
@@ -44,7 +47,7 @@ val defaultPadding = 16.dp
 val itemSpacing = 8.dp
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navController: NavController) {
     // State for first name
     val (firstName, onFirstNameChange) = rememberSaveable {
         mutableStateOf("")
@@ -186,10 +189,12 @@ fun SignUpScreen() {
                 annotatedString.getStringAnnotations(offset, offset).forEach {
                     when (it.tag) {
                         privacyText -> {
+                            navController.navigate(Route.PrivacyScreen().name)
                             Toast.makeText(context, "Go to privacy page", Toast.LENGTH_SHORT).show()
                         }
 
                         policyText -> {
+                            navController.navigate(Route.PolicyScreen().name)
                             Toast.makeText(context, "Go to policy page", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -202,6 +207,7 @@ fun SignUpScreen() {
         // Signup button
         Button(
             onClick = {
+                navController.navigate(Route.HomeScreen().name)
                 Toast.makeText(context, "Sign Up", Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier.fillMaxWidth()
@@ -228,6 +234,7 @@ fun SignUpScreen() {
                 annotatedSignInText.getStringAnnotations(offset, offset).forEach {
                     when (it.tag) {
                         signInText -> {
+                            navController.navigate(Route.LoginScreen().name)
                             Toast.makeText(context, "Go to sign in screen", Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -242,6 +249,7 @@ fun SignUpScreen() {
 @Composable
 private fun SignUpScreenPreview() {
     UITheme {
-        SignUpScreen()
+        val navController = rememberNavController()
+        SignUpScreen(navController = navController)
     }
 }

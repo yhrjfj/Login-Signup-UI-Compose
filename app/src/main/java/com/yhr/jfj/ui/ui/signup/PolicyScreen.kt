@@ -1,6 +1,7 @@
 package com.yhr.jfj.ui.ui.signup
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -11,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.yhr.jfj.ui.Route
 
 @Composable
-fun PolicyScreen(onBtnClick: () -> Unit) {
-    Box(
+fun PolicyScreen(navController: NavController, onBtnClick: () -> Unit) {
+    Column(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Policy Screen",
@@ -28,6 +32,7 @@ fun PolicyScreen(onBtnClick: () -> Unit) {
         Button(
             onClick = {
                 onBtnClick()
+                navController.navigate(Route.SignUpScreen().name)
             }
         ) {
             Text(text = "Agree")

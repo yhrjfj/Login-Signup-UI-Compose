@@ -35,7 +35,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.yhr.jfj.ui.R
+import com.yhr.jfj.ui.Route
 import com.yhr.jfj.ui.ui.components.HeaderText
 import com.yhr.jfj.ui.ui.components.LoginTextField
 import com.yhr.jfj.ui.ui.components.PasswordField
@@ -46,7 +49,7 @@ val defaultPadding = 16.dp
 val itemSpacing = 8.dp
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     Column(
         modifier = Modifier.padding(defaultPadding),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -123,7 +126,7 @@ fun LoginScreen() {
         // Login Button
         Button(
             onClick = {
-                Toast.makeText(context, "Login", Toast.LENGTH_SHORT).show()
+                navController.navigate(Route.HomeScreen().name)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -148,7 +151,9 @@ fun LoginScreen() {
                 }
 
             },
-            onSignUpClick = { /*TODO*/ },
+            onSignUpClick = {
+                navController.navigate(Route.SignUpScreen().name)
+            },
             modifier = Modifier
                 .fillMaxSize()
                 .wrapContentSize(align = Alignment.BottomCenter)
@@ -160,7 +165,8 @@ fun LoginScreen() {
 @Composable
 private fun LoginScreenPreview() {
     UITheme {
-        LoginScreen()
+        val navController = rememberNavController()
+        LoginScreen(navController = navController)
     }
 }
 

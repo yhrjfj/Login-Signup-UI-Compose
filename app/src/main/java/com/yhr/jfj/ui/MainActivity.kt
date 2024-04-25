@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.yhr.jfj.ui.ui.login.LoginScreen
+import androidx.navigation.compose.rememberNavController
 import com.yhr.jfj.ui.ui.theme.UITheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +20,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    val navController = rememberNavController()
+                    Navigation(navController = navController)
                 }
             }
         }

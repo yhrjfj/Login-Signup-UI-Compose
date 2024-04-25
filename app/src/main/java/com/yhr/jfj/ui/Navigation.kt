@@ -22,16 +22,16 @@ sealed class Route {
 fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Route.LoginScreen().name) {
         composable(route = Route.LoginScreen().name) {
-            LoginScreen()
+            LoginScreen(navController = navController)
         }
         composable(route = Route.SignUpScreen().name) {
-            SignUpScreen()
+            SignUpScreen(navController = navController)
         }
         composable(route = Route.PrivacyScreen().name) {
-            PrivacyScreen {}
+            PrivacyScreen(navController = navController) {}
         }
         composable(route = Route.PolicyScreen().name) {
-            PolicyScreen {}
+            PolicyScreen(navController = navController) {}
         }
         composable(route = Route.HomeScreen().name) {
             HomeScreen()
