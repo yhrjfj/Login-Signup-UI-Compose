@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +23,7 @@ fun LoginTextField(
     label: String,
     leadingIcon: ImageVector,
     keyboardType: KeyboardType,
+    imeAction: ImeAction,
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     OutlinedTextField(
@@ -30,7 +32,10 @@ fun LoginTextField(
         onValueChange = onValueChange,
         label = { Text(text = label) },
         leadingIcon = { Icon(imageVector = leadingIcon, contentDescription = null) },
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+            imeAction = imeAction
+        ),
         visualTransformation = visualTransformation,
         shape = RoundedCornerShape(30)
     )
@@ -44,6 +49,7 @@ private fun LoginTextFieldPreview() {
         onValueChange = {},
         label = "Title",
         leadingIcon = Icons.Rounded.MailOutline,
-        keyboardType = KeyboardType.Text
+        keyboardType = KeyboardType.Text,
+        imeAction = ImeAction.Next
     )
 }

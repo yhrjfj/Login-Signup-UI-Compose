@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -29,6 +30,7 @@ fun PasswordField(
     label: String,
     leadingIcon: ImageVector,
     keyboardType: KeyboardType,
+    imeAction: ImeAction,
     visualTransformation: VisualTransformation
 
 ) {
@@ -41,7 +43,10 @@ fun PasswordField(
         onValueChange = onValueChange,
         label = { Text(text = label) },
         leadingIcon = { Icon(imageVector = leadingIcon, contentDescription = null) },
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+            imeAction = imeAction
+        ),
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else visualTransformation,
         trailingIcon = {
             IconButton(
@@ -70,6 +75,7 @@ private fun PasswordFieldPreview() {
             label = "Password",
             leadingIcon = Icons.Rounded.Lock,
             keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Done,
             visualTransformation = PasswordVisualTransformation()
         )
     }
