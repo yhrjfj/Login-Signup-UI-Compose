@@ -1,5 +1,6 @@
 package com.yhr.jfj.ui.ui.login
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -26,7 +28,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,7 +50,7 @@ fun LoginScreen() {
     Column(
         modifier = Modifier.padding(defaultPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
         // State for user name
         val (userName, setUserName) = rememberSaveable {
@@ -60,6 +64,8 @@ fun LoginScreen() {
         val (checked, onCheckChange) = rememberSaveable {
             mutableStateOf(false)
         }
+        // Context
+        val context = LocalContext.current
 
         // Header part
         HeaderText(
@@ -74,6 +80,7 @@ fun LoginScreen() {
             label = "Username",
             leadingIcon = Icons.Default.Person,
             keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Next,
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -87,6 +94,7 @@ fun LoginScreen() {
             label = "Password",
             leadingIcon = Icons.Rounded.Lock,
             keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Done,
             visualTransformation = PasswordVisualTransformation()
         )
 
@@ -115,14 +123,37 @@ fun LoginScreen() {
 
         // Login Button
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                Toast.makeText(context, "Login", Toast.LENGTH_SHORT).show()
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Login")
         }
 
         // Alternative login option
-        AlternativeLoginOptions(onIconClick = {}, onSignUpClick = { /*TODO*/ })
+        AlternativeLoginOptions(
+            onIconClick = { index ->
+                when (index) {
+                    0 -> {
+                        Toast.makeText(context, "Instagram", Toast.LENGTH_SHORT).show()
+                    }
+
+                    1 -> {
+                        Toast.makeText(context, "GitHub", Toast.LENGTH_SHORT).show()
+                    }
+
+                    2 -> {
+                        Toast.makeText(context, "Google", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            },
+            onSignUpClick = { /*TODO*/ },
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(align = Alignment.BottomCenter)
+        )
     }
 }
 
@@ -138,51 +169,44 @@ private fun LoginScreenPreview() {
 fun AlternativeLoginOptions(
     onIconClick: (index: Int) -> Unit,
     onSignUpClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val iconList = listOf(
         R.drawable.icon_instagram,
         R.drawable.icon_github,
-        R.drawable.icon_google
+        R.drawable.icon_google,
     )
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(align = Alignment.BottomCenter),
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Or Sign in with")
-        Spacer(modifier = Modifier.height(itemSpacing))
-        Row {
-            iconList.forEachIndexed { index, iconRedId ->
+        Text("Or Sign in With")
+        Spacer(Modifier.height(itemSpacing))
+        Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+            iconList.forEachIndexed { index, iconResId ->
                 Icon(
-                    painter = painterResource(id = iconRedId),
-                    contentDescription = null,
-                    modifier = modifier
+                    painter = painterResource(iconResId),
+                    contentDescription = "alternative Login",
+                    modifier = Modifier
                         .size(32.dp)
                         .clickable {
                             onIconClick(index)
                         }
                         .clip(CircleShape)
                 )
+                Spacer(Modifier.width(defaultPadding))
             }
         }
+        Spacer(Modifier.height(itemSpacing))
         Row(
-            modifier = Modifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Don't have an account?")
-            TextButton(onClick = { onSignUpClick() }) {
-                Text(text = "Sign Up")
+            Text("Don't have an Account?")
+            TextButton(onClick = onSignUpClick) {
+                Text("Sign Up")
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AlternativeLoginOptionsPreview() {
-
 }
