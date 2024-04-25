@@ -49,8 +49,7 @@ val itemSpacing = 8.dp
 fun LoginScreen() {
     Column(
         modifier = Modifier.padding(defaultPadding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // State for user name
         val (userName, setUserName) = rememberSaveable {
