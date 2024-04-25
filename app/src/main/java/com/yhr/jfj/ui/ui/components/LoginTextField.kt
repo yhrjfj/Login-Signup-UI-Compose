@@ -21,7 +21,7 @@ fun LoginTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    leadingIcon: ImageVector,
+    leadingIcon: ImageVector?,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
     visualTransformation: VisualTransformation = VisualTransformation.None
@@ -31,7 +31,7 @@ fun LoginTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(text = label) },
-        leadingIcon = { Icon(imageVector = leadingIcon, contentDescription = null) },
+        leadingIcon = { leadingIcon?.let { Icon(imageVector = it, contentDescription = null) } },
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
             imeAction = imeAction
