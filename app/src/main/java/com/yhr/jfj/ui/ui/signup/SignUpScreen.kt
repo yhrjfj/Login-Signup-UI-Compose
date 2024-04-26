@@ -213,9 +213,12 @@ fun SignUpScreen(navController: NavController) {
         // Signup button
         Button(
             onClick = {
-                navController.navigate(Route.HomeScreen().name)
-                Toast.makeText(context, "Sign Up", Toast.LENGTH_SHORT).show()
+                if (isFieldsNotEmpty) {
+                    navController.navigate(Route.HomeScreen().name)
+                    Toast.makeText(context, "Sign Up", Toast.LENGTH_SHORT).show()
+                }
             },
+            enabled = isFieldsNotEmpty,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Sign Up")
